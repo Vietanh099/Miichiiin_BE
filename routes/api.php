@@ -164,7 +164,6 @@ Route::middleware('auth:api')->prefix('users')->group(function () {
     // Các routes cần xác thực token
     Route::get('hotel', [hotelController::class, 'home_user']);
     Route::get('/hotel/city={id}', [hotelController::class, 'home_city']);
-
     // ...
 });
 
