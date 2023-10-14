@@ -1127,4 +1127,4 @@ class CateRoomController extends Controller
         'rating_comment' => $roomAverages,
     ]);
 }
-} 
+}
