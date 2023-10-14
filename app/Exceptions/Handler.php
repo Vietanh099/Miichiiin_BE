@@ -5,8 +5,10 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+
 class Handler extends ExceptionHandler
 {
+    use \Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
@@ -26,5 +28,13 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+    public function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthorized'], \Illuminate\Http\Response::HTTP_UNAUTHORIZED);
+        }
+
+        return redirect()->guest(route('login'));
     }
 }
