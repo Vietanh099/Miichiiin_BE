@@ -122,7 +122,8 @@ if (in_array($request->id_category, $existingCates)) {
             'users.email as user_email'
         )
             ->join('category_rooms', 'rates.id_category', '=', 'category_rooms.id')
-            ->join('hotels', 'hotels.id', '=', 'category_rooms.id_hotel')
+            ->join('hotel_categories', 'hotel_categories.id_cate', '=', 'category_rooms.id')
+            ->join('hotels', 'hotels.id', '=', 'hotel_categories.id_hotel')
             ->join('users', 'users.id', '=', 'rates.id_user')
             ->where('hotels.id', $id)
             ->where('rates.status',"=", 1)
