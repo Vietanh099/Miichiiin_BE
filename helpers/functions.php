@@ -60,7 +60,7 @@ function create_booking($id_hotel, $data, $id_user=null) {
     }
     $booking->phone = $sync_phone;
 
-    $slug = "MiChi-Booking-" . strtolower(Str::random(2)) . rand(100, 999);
+    $slug = "MiiChi-Booking-" . strtolower(Str::random(2)) . rand(100, 999);
     $booking->slug = $slug;
 
     $check_in = $data['check_in'];
@@ -235,15 +235,12 @@ function get_detail_booking($id) {
 }
 
 function get_wallet_via_user($id_user) {
-    try {
-        return Wallet::query()
-            ->select('wallets.*')
-            ->join('users', 'users.id', '=', 'wallets.id')
-            ->where('wallets.id_user', $id_user)
-            ->first();
-    } catch (Exception $error) {
-        return $error->getMessage();
-    }
+//    dd($id_user);
+    return Wallet::query()
+        ->select('wallets.*')
+        ->join('users', 'users.id', '=', 'wallets.id_user')
+        ->where('wallets.id_user', $id_user)
+        ->first();
 }
 
 function sync_phone($phone) {

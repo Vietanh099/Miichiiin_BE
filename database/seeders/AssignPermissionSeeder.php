@@ -14,13 +14,13 @@ class AssignPermissionSeeder extends Seeder
     public function run(): void
     {
         $role = Role::query()->select('*')->where('name','chain owner')->first();
-        $permissions = Permission::query()->select('*')->get();
+        $permissions = Permission::query()->select('*')->whereNotIn('id', [54])->get();
         $role->syncPermissions($permissions);
 
         $role = Role::query()->select('*')->where('name','hotel owner')->first();
         $permissions = Permission::query()
             ->select('*')
-            ->whereNotIn('id', [2,3,4,9,11,13])
+            ->whereNotIn('id', [2,3,4,9,11,13,55])
             ->get();
         $role->syncPermissions($permissions);
 

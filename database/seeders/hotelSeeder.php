@@ -15,7 +15,7 @@ class hotelSeeder extends Seeder
     {
         $hotels = [
             [
-                "name" => "Michi Hà Nội",
+                "name" => "Miichi Hà Nội",
                 "description" => fake()->text(20),
                 "star" => fake()->numberBetween(0,5),
                 "status" => 2,
@@ -27,7 +27,7 @@ class hotelSeeder extends Seeder
                 "quantity_of_room" => fake()->numberBetween(0,30),
             ],
             [
-                "name" => "Michi Đà Nẵng",
+                "name" => "Miichi Đà Nẵng",
                 "description" => fake()->text(20),
                 "star" => fake()->numberBetween(0,5),
                 "status" => 2,

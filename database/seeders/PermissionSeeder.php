@@ -84,6 +84,9 @@ class PermissionSeeder extends Seeder
             [1, 'add booking'],
             [1, 'update booking'],
             [1, 'delete booking'],
+            // STATICTICAL
+            [2, 'get statictical hotel'],
+            [3, 'add statictical chain'],
         ];
 
         // create row to insert to permission table
