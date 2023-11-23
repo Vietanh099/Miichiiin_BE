@@ -167,7 +167,7 @@ function create_booking($id_hotel, $data, $id_user=null) {
     bookingDetail::query()->insert($booking_d_record);
 
     set_success_booking($booking);
-    Mail::to($data['email'])->send(new Sendmail());
+    // Mail::to($data['email'])->send(new Sendmail());
     return [
         "message" => $booking,
         "status" => Response::HTTP_OK
