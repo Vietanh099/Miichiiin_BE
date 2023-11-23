@@ -47,6 +47,7 @@ class WalletController extends Controller
     public function add_voucher_to_wallet(Request $request) {
         $type_of_users = $request->types;
         $id_voucher = $request->voucher;
+        $voucher = Voucher::query()->find($id_voucher);
         if (!is_int($id_voucher)) {
             return response()->json(
                 ["error_message" => "Id của voucher không hợp lệ"]
@@ -114,8 +115,9 @@ class WalletController extends Controller
                 ["error_message" => "Số lượng voucher trên hệ thống không đủ"]
                 , Response::HTTP_BAD_REQUEST);
         }
+        $count = 0;
         foreach ($array_user as $user) {
-            $wallet = get_wallet_via_user($user);
+            $wallet = get_wallet_via_user($user->id);
             $check_voucher = $this->check_voucher_in_wallet($wallet->id, $id_voucher);
             if ($check_voucher) {
                 continue;
@@ -125,12 +127,12 @@ class WalletController extends Controller
                 "id_voucher" => $id_voucher
             ];
             WalletVoucher::query()->create($data);
+            $voucher->quantity -= 1;
+            $count += 1;
         }
-        $voucher = Voucher::query()->find($id_voucher);
-        $voucher->quantity -= count($array_user);
         $voucher->save();
         return response()->json(
-            ["message" => "Đã phát voucher thành công cho " . count($array_user) . " người dùng"]
+            ["message" => "Đã phát voucher thành công cho " . $count . " người dùng"]
         );
     }
 
@@ -139,6 +141,6 @@ class WalletController extends Controller
             ->select('*')
             ->where('id_wallet', $id_wallet)
             ->get();
-        return collect($list_voucher)->contains('id', $id_voucher);
+        return collect($list_voucher)->contains('id_voucher', $id_voucher);
     }
 }

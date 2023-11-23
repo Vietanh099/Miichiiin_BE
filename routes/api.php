@@ -168,18 +168,18 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // thống kê booking và dịch vụ của tất cả khách sạn theo tháng cả năm truyền vào
 
     // thống kê  booking và tổng doanh thu của  khách sạn trong  tháng cả năm truyền vào
-    Route::get('/statictical_total_booking_month_in_hotel/{id_hotels}/{year}', [CateRoomController::class, 'statictical_total_booking_month_in_hotel']);
-    Route::get('/statistical_rates_in_hotel/{id_hotel}/{month}/{year}', [CateRoomController::class, 'statistical_rates']);
-    Route::get('statistical_services/{month}/{year}/{id_hotel}', [CateRoomController::class, 'statistical_services']);
+    Route::middleware('permission:get statictical hotel,admins')->get('/statictical_total_booking_month_in_hotel/{id_hotels}/{year}', [CateRoomController::class, 'statictical_total_booking_month_in_hotel']);
+    Route::middleware('permission:get statictical hotel,admins')->get('/statistical_rates_in_hotel/{id_hotel}/{month}/{year}', [CateRoomController::class, 'statistical_rates']);
+    Route::middleware('permission:get statictical hotel,admins')->get('statistical_services/{month}/{year}/{id_hotel}', [CateRoomController::class, 'statistical_services']);
 
     // tổng doanh thu của cả hệ thống từ trước tới nay
     // Route::get('/statistical_total_amount', [CateRoomController::class, 'statistical_total_amount']);
 
     // Route::get('/statistical_total_amount_day/{id_hotel}/{month}/{year}', [CateRoomController::class, 'statistical_total_amount_day']);
 
-    Route::get('/statictical_total_booking_monthl/{month}/{year}', [CateRoomController::class, 'statictical_total_booking_monthl']);
-    Route::get('statistical_services_inchain/{month}/{year}', [CateRoomController::class, 'statistical_services_inchain']);
-    Route::get('/statistical_rates/{month}/{year}/{category}', [CateRoomController::class, 'statistical_rates_inchain']);
+    Route::middleware('permission:add statictical chain,admins')->get('/statictical_total_booking_monthl/{month}/{year}', [CateRoomController::class, 'statictical_total_booking_monthl']);
+    Route::middleware('permission:add statictical chain,admins')->get('statistical_services_inchain/{month}/{year}', [CateRoomController::class, 'statistical_services_inchain']);
+    Route::middleware('permission:add statictical chain,admins')->get('/statistical_rates/{month}/{year}/{category}', [CateRoomController::class, 'statistical_rates_inchain']);
 
 
 
