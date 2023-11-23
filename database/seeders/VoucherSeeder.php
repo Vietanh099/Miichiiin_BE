@@ -20,7 +20,7 @@ class VoucherSeeder extends Seeder
             $list_voucher = [
                 [
                     'name' => fake()->text(10),
-                    'slug' => "MiChi-Voucher-" . strtolower(Str::random(2)) . rand(100, 999),
+                    'slug' => "MiiChi-Voucher-" . strtolower(Str::random(2)) . rand(100, 999),
                     'image' => fake()->imageUrl,
                     'type' => 1,
                     'quantity' => 100,
@@ -35,7 +35,7 @@ class VoucherSeeder extends Seeder
                 ],
                 [
                     'name' => fake()->text(10),
-                    'slug' => "MiChi-Voucher-" . strtolower(Str::random(2)) . rand(100, 999),
+                    'slug' => "MiiChi-Voucher-" . strtolower(Str::random(2)) . rand(100, 999),
                     'image' => fake()->imageUrl,
                     'type' => 2,
                     'quantity' => 100,
