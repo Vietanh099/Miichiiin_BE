@@ -18,11 +18,11 @@ class BookingController extends Controller
     {
         $auth_admin = Auth::guard('admins')->user();
         if ($auth_admin->id_hotel == null) {
-            return response()->json(
-                [
-                    "message" => "Bạn không có quyền xem các đơn đặt hàng"
-                ], Response::HTTP_BAD_REQUEST
-            );
+            $booking = booking::query()
+                ->select('bookings.*', 'users.name as name_user',)
+                ->leftJoin('users', 'bookings.id_user', '=', 'users.id')
+                ->get();
+            return response()->json($booking);
         }
         $booking = booking::query()
                     ->select('bookings.*', 'users.name as name_user',)
