@@ -14,7 +14,9 @@ class AssignPermissionSeeder extends Seeder
     public function run(): void
     {
         $role = Role::query()->select('*')->where('name','chain owner')->first();
-        $permissions = Permission::query()->select('*')->whereNotIn('id', [54])->get();
+        $permissions = Permission::query()
+            ->select('*')
+            ->whereNotIn('id', [54,14,33,34,18,26,22])->get();
         $role->syncPermissions($permissions);
 
         $role = Role::query()->select('*')->where('name','hotel owner')->first();
