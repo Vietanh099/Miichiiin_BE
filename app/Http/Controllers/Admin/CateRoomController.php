@@ -382,9 +382,9 @@ class CateRoomController extends Controller
         $imageDetail->id_cate = $cate->id;
         $imageDetail->id_image = $imageRecord->id;
         $imageDetail->save();
-        $comfort = new comfortDetail();
         if ($categoryRoom->id) {
             foreach ($params['comfort'] as $comfortValue) {
+        $comfort = new comfortDetail();
                 $comfort->id_cate_room = $cate->id;
                 $comfort->id_comfort = $comfortValue;
                 $comfort->save();
@@ -445,8 +445,9 @@ class CateRoomController extends Controller
         }
         $comfortDetailToDelete = comfortDetail::where('id_cate_room', $categoryRoom->id);
         $comfortDetailToDelete->delete();
-        $comfort = new comfortDetail();
+
             foreach ($params['comfort'] as $comfortValue) {
+                $comfort = new comfortDetail();
                 $comfort->id_cate_room = $categoryRoom->id;
                 $comfort->id_comfort = $comfortValue;
                 $comfort->save();
