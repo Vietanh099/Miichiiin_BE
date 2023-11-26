@@ -50,12 +50,7 @@ class CategoryRoomRequest extends FormRequest
                 }
                 if ($currentAction == 'update') {
                     $rules = [
-                        'check_in' => 'required',
-                        'check_out' => 'required',
                         'image' => 'mimes:jpg,jpeg,png,webp',
-                        'id_hotel' => 'required|integer',
-                        'number_people' => 'required|integer',
-                        'total_room' => 'required|integer',
                     ];
                 }
                 if ($currentAction == 'store_image_cate') {
