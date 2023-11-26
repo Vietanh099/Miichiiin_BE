@@ -22,7 +22,6 @@ class Voucher extends Model
         'start_at',
         'expire_at',
         'status',
-        'description',
         'meta',
         'quantity'
         ];

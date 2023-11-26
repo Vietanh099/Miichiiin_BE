@@ -26,7 +26,6 @@ class VoucherFactory extends Factory
             'expire_at' => fake()->dateTime(),
             'status' => fake()->numberBetween(1,3),
             'meta' => fake()->text(50),
-            'description' => fake()->text(50)
         ];
     }
 }
