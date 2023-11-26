@@ -430,6 +430,14 @@ class CateRoomController extends Controller
             $params['image'] = $uploadedImage->getSecurePath();
 
         }
+        $comfortDetailToDelete = comfortDetail::where('id_cate_room', $categoryRoom->id);
+        $comfortDetailToDelete->delete();
+        $comfort = new comfortDetail();
+            foreach ($params['comfort'] as $comfortValue) {
+                $comfort->id_cate_room = $categoryRoom->id;
+                $comfort->id_comfort = $comfortValue;
+                $comfort->save();
+            }
         if ($categoryRoom) {
             $categoryRoom->update($params);
             return response()->json([

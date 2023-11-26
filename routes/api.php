@@ -311,6 +311,8 @@ Route::get('/hotel/city={id}', [hotelController::class, 'home_city']);
 Route::get('/hotel/{id}', [hotelController::class, 'detail_hotel_user']);
 
 Route::get('/services', [ServiceController::class, 'index']);
+Route::get('/rooms_hethong', [roomsController::class, 'list_rooms']);
+
 // hiển thị services theo id_hotel
 Route::get('/services/hotels={id}', [ServiceController::class, 'list_services_hotel']);
 // hiển thị comment theo id_cate
