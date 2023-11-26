@@ -349,7 +349,14 @@ class CateRoomController extends Controller
     public function show($id)
     {
         $categoryRoom = categoryRoom::find($id);
-        return response()->json($categoryRoom);
+        $cate = comfortDetail::where('id_cate_room', '=', $categoryRoom->id)->get();
+
+        $data = [
+            'categoryRoom' => $categoryRoom,
+            'comfort' => $cate
+        ];
+
+        return response()->json($data);
     }
     public function store(CategoryRoomRequest $request)
     {
