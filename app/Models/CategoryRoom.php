@@ -15,7 +15,6 @@ class categoryRoom extends Model
         "name",
         "image",
         "description",
-        "short_description",
         "floor",
         "acreage",
         "price",

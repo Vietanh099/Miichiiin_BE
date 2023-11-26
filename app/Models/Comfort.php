@@ -12,7 +12,7 @@ class Comfort extends Model
     protected $table = 'comforts';
 
 
-    protected $fillable = ['name', 'description','status','alt'];
+    protected $fillable = ['name', 'description','status','icon'];
     public function scopeActiveCategoryRooms($query)
     {
         return $query->where('comforts.status', 2);

@@ -29,7 +29,6 @@ class VoucherSeeder extends Seeder
                     'expire_at' => Carbon::now()->addDays(7),
                     'status' => 2,
                     'meta' => fake()->text(20),
-                    'description' => fake()->text(30),
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
@@ -44,7 +43,6 @@ class VoucherSeeder extends Seeder
                     'expire_at' => Carbon::now()->addDays(7),
                     'status' => 2,
                     'meta' => fake()->text(20),
-                    'description' => fake()->text(30),
                     'created_at' => now(),
                     'updated_at' => now()
                 ]

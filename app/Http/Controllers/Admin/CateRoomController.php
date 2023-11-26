@@ -7,9 +7,11 @@ use App\Http\Requests\CategoryRoomRequest;
 use App\Models\booking;
 use App\Models\bookingDetail;
 use App\Models\categoryRoom;
+use App\Models\Comfort;
 use App\Models\hotel;
 use App\Models\hotel_category;
 use App\Models\image;
+use App\Models\comfortDetail;
 use App\Models\imageDetail;
 use App\Models\room;
 use Illuminate\Support\Carbon;
@@ -358,8 +360,6 @@ class CateRoomController extends Controller
         $params['image'] = $uploadedImage->getSecurePath();
         $categoryRoom = categoryRoom::create($params);
 
-
-
         $cate = categoryRoom::find($categoryRoom->id);
         $imageRecord = new Image();
         $imageRecord->image = $uploadedImage->getSecurePath();
@@ -369,8 +369,13 @@ class CateRoomController extends Controller
         $imageDetail->id_cate = $cate->id;
         $imageDetail->id_image = $imageRecord->id;
         $imageDetail->save();
-
+        $comfort = new comfortDetail();
         if ($categoryRoom->id) {
+            foreach ($params['comfort'] as $comfortValue) {
+                $comfort->id_cate_room = $cate->id;
+                $comfort->id_comfort = $comfortValue;
+                $comfort->save();
+            }
             return response()->json($categoryRoom, Response::HTTP_CREATED);
         }
         return response()->json([

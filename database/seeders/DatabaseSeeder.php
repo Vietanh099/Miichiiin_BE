@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
             AssignPermissionSeeder::class,
             WalletSeeder::class,
             WalletVoucherSeeder::class,
+            IconsSeeder::class,
         ]);
     }
 }

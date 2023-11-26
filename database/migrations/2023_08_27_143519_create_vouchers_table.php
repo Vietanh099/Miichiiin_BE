@@ -24,7 +24,6 @@ return new class extends Migration
             $table->timestamp('expire_at')->nullable();
             $table->integer('status')->default(1);
             $table->string('meta')->nullable();
-            $table->string('description')->nullable();
             $table->softDeletes(); // add
             $table->timestamps();
         });
