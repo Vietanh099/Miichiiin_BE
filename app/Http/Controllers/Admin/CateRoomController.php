@@ -351,9 +351,15 @@ class CateRoomController extends Controller
         $categoryRoom = categoryRoom::find($id);
         $cate = comfortDetail::where('id_cate_room', '=', $categoryRoom->id)->get();
 
+        $comfortIds = [];
+        foreach ($cate as $comfort) {
+            $comfort_detail = comfort::where('id', '=', $comfort->id_comfort)->get();
+            $comfortIds[] = $comfort_detail;
+        }
+
         $data = [
             'categoryRoom' => $categoryRoom,
-            'comfort' => $cate
+            'comfort' => $comfortIds
         ];
 
         return response()->json($data);
