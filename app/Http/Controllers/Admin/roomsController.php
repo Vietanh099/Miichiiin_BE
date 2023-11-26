@@ -48,6 +48,13 @@ $rooms = Room::select('rooms.*', 'hotels.name as name_hotel', 'category_rooms.na
 
         $room->state = !$isBooked;
     }
+    return response()->json($rooms);
+    }
+
+    public function list_rooms()
+    {
+
+    $rooms = Room::all();
 
     return response()->json($rooms);
     }
