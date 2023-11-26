@@ -50,7 +50,6 @@ class CategoryRoomRequest extends FormRequest
                 }
                 if ($currentAction == 'update') {
                     $rules = [
-                        'image' => 'mimes:jpg,jpeg,png,webp',
                     ];
                 }
                 if ($currentAction == 'store_image_cate') {
