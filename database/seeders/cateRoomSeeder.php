@@ -20,8 +20,7 @@ class cateRoomSeeder extends Seeder
             [
                 "name" => "Phòng tiêu chuẩn",
                 "description" =>fake()->text(20),
-                "image" => fake()->imageUrl,
-                "short_description" => fake()->text(10),
+                "image" => "https://res.cloudinary.com/dzqywzres/image/upload/v1701098357/274803_Dobbelt-vaerelse-hotel-oasia-aarhus_iistvj.jpg",
                 "quantity_of_people" => fake()->numberBetween(4,12),
                 "price" => fake()->numberBetween(500000,5000000),
                 "acreage" => fake()->numberBetween(1,10),
@@ -34,8 +33,7 @@ class cateRoomSeeder extends Seeder
 
                 "name" => "Phòng gia đình",
                 "description" =>fake()->text(20),
-                "image" => fake()->imageUrl,
-                "short_description" => fake()->text(10),
+                "image" => "https://res.cloudinary.com/dzqywzres/image/upload/v1701098357/56009974_a7f12f.jpg",
                 "quantity_of_people" => fake()->numberBetween(4,12),
                 "price" => fake()->numberBetween(500000,5000000),
                 "acreage" => fake()->numberBetween(1,10),
@@ -47,8 +45,7 @@ class cateRoomSeeder extends Seeder
             [
                 "name" => "Phòng view biển",
                 "description" =>fake()->text(20),
-                "image" => fake()->imageUrl,
-                "short_description" => fake()->text(10),
+                "image" => "https://res.cloudinary.com/dzqywzres/image/upload/v1701098356/360_F_65821315_WGpXLhFtlEHfGQ8sqJ5RUNFNmnYDGgOd_l17pcj.jpg",
                 "quantity_of_people" => fake()->numberBetween(4,12),
                 "price" => fake()->numberBetween(500000,5000000),
                 "acreage" => fake()->numberBetween(1,10),
@@ -61,8 +58,7 @@ class cateRoomSeeder extends Seeder
 
                 "name" => "Phòng hạng sang",
                 "description" =>fake()->text(20),
-                "image" => fake()->imageUrl,
-                "short_description" => fake()->text(10),
+                "image" => "https://res.cloudinary.com/dzqywzres/image/upload/v1701098356/360_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd_dy9oxw.jpg",
                 "quantity_of_people" => fake()->numberBetween(4,12),
                 "price" => fake()->numberBetween(500000,5000000),
                 "acreage" => fake()->numberBetween(1,10),
@@ -74,15 +70,14 @@ class cateRoomSeeder extends Seeder
             [
                 "name" => "Phòng suite",
                 "description" =>fake()->text(20),
-                "image" => fake()->imageUrl,
-                "short_description" => fake()->text(10),
+                "image" => "https://res.cloudinary.com/dzqywzres/image/upload/v1701098357/56009974_a7f12f.jpg",
                 "quantity_of_people" => fake()->numberBetween(4,12),
                 "price" => fake()->numberBetween(500000,5000000),
-                "acreage" => fake()->numberBetween(1,10),
+                "acreage" => fake()->numberBetween(1,100),
                 "floor" => fake()->numberBetween(1,10),
                 "status" => 2,
-                "likes" => fake()->numberBetween(1,100),
-                "views" => fake()->numberBetween(1,100),
+                "likes" => fake()->numberBetween(1,10000),
+                "views" => fake()->numberBetween(1,10000),
             ]
         ];
         categoryRoom::query()->insert($categories);

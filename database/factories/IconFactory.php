@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comfort>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Icon>
  */
-class ComfortFactory extends Factory
+class IconFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class ComfortFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->text(50),
-            'description' => fake()->text(50),
-            'icon' => fake()->text(50)
+            //
         ];
     }
 }

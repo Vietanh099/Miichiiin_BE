@@ -36,6 +36,7 @@ class RateController extends Controller
      */
     public function store(RateRequest $request)
     {
+        $coin = 20000;
         $bookings = Booking::select('booking_details.id_cate as id_cate')
     ->join('booking_details', 'booking_details.id_booking', '=', 'bookings.id')
     ->where('bookings.id_user', $request->id_user)
@@ -46,6 +47,10 @@ if (in_array($request->id_category, $existingCates)) {
     $rate = new Rate();
     $rate->fill($request->except('_token'));
     $rate->save();
+    if(status_received_money($request->id_user,false)){
+        topup_coin($request->id_user, $coin);
+        status_received_money($request->id_user, false,true);
+    }
 
     return response()->json($rate);
 } else {

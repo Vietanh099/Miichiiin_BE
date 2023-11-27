@@ -47,7 +47,10 @@ class CategoryRoomRequest extends FormRequest
                         'number_people' => 'required|integer',
                         'total_room' => 'required|integer',
                     ];
-
+                }
+                if ($currentAction == 'update') {
+                    $rules = [
+                    ];
                 }
                 if ($currentAction == 'store_image_cate') {
                     $rules = [];

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class WalletController extends Controller
@@ -18,6 +19,7 @@ class WalletController extends Controller
     public function create_wallet($id_user) {
         $wallet = new Wallet();
         $wallet->id_user = $id_user;
+        $wallet->slug = "MiiChi-Wallet-" . strtolower(Str::random(2)) . rand(100, 999);
         $wallet->save();
         if ($wallet->id) {
             return response()->json($wallet);

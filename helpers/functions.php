@@ -51,6 +51,7 @@ function create_booking($id_hotel, $data, $id_user=null) {
     $booking->fill($data);
     $booking->id_hotel = $id_hotel;
     $booking->id_user = $id_user;
+    $voucher = $data['id_voucher'];
     $sync_phone = sync_phone($booking->phone);
     if ($sync_phone == null) {
         return [
@@ -103,7 +104,6 @@ function create_booking($id_hotel, $data, $id_user=null) {
             ->where('hotel_categories.id_hotel', $id_hotel)
             ->orderBy('rooms.name')
             ->get();
-//        dd($list_room);
 
         if ($i != 0) {
             if ($cart[$i]['id_cate'] != $cart[$i - 1]['id_cate']) {
@@ -139,26 +139,20 @@ function create_booking($id_hotel, $data, $id_user=null) {
                 'id_cate' => $cart[$i]['id_cate'],
                 'id_services' => -1,
                 'quantity_service' => null,
-//                    'id_promotions' => $promotion,
+                'created_at' => now(),
             ];
             $reset++;
             continue;
         }
 
         foreach ($cart[$i]['services'] as $service) {
-//            $quantity_service = $service['quantity'];
-//            dd($service['id_service'] == -1);
-////            if (){
-////                dd($service['id_service']);
-////                $quantity_service = -1;
-////            }
-
             $booking_d_record[] = [
                 'id_booking' => $booking->id,
                 'id_room' => $list_room[$j]->id,
                 'id_cate' => $cart[$i]['id_cate'],
                 'id_services' => $service['id_service'],
                 'quantity_service' => $service['quantity'],
+                'created_at' => now(),
             ];
             $reset++;
         }
@@ -167,7 +161,10 @@ function create_booking($id_hotel, $data, $id_user=null) {
     bookingDetail::query()->insert($booking_d_record);
 
     set_success_booking($booking);
-    // Mail::to($data['email'])->send(new Sendmail());
+    if (isset($id_user)) {
+        status_received_money($id_user, true, true);
+    }
+    Mail::to($data['email'])->send(new Sendmail());
     return [
         "message" => $booking,
         "status" => Response::HTTP_OK
@@ -270,12 +267,15 @@ function check_quantity_voucher($id_voucher, $quantity) {
 function status_received_money($id_user, $status, $set=false) {
     $user = User::query()->find($id_user);
     $other_attributes = json_decode($user->other_attributes);
+    if ($other_attributes == null) {
+        $other_attributes = [];
+    }
     if ($set) {
-        $other_attributes->received_money = $status;
+        $other_attributes['received_money'] = $status;
         $user->other_attributes = json_encode($other_attributes);
         $user->save();
     }
-    return $other_attributes->received_money;
+    return $other_attributes['received_money'];
 }
 
 function topup_coin($id_user, $quantity_coin) {

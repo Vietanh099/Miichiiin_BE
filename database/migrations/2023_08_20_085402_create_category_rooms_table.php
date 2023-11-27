@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('short_description')->nullable();
             $table->integer('quantity_of_people')->nullable();
             $table->integer('price')->nullable();
             $table->integer('acreage')->nullable();

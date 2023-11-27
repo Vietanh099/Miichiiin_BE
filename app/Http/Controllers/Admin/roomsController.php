@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomRequest;
 use App\Models\booking;
+use App\Models\categoryRoom;
 use App\Models\hotel_category;
 use App\Models\room;
 use Illuminate\Support\Carbon;
@@ -48,6 +49,13 @@ $rooms = Room::select('rooms.*', 'hotels.name as name_hotel', 'category_rooms.na
 
         $room->state = !$isBooked;
     }
+    return response()->json($rooms);
+    }
+
+    public function list_rooms()
+    {
+
+    $rooms = categoryRoom::all();
 
     return response()->json($rooms);
     }

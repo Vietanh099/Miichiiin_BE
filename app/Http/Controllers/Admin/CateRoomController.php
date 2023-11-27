@@ -7,9 +7,11 @@ use App\Http\Requests\CategoryRoomRequest;
 use App\Models\booking;
 use App\Models\bookingDetail;
 use App\Models\categoryRoom;
+use App\Models\Comfort;
 use App\Models\hotel;
 use App\Models\hotel_category;
 use App\Models\image;
+use App\Models\comfortDetail;
 use App\Models\imageDetail;
 use App\Models\room;
 use Illuminate\Support\Carbon;
@@ -43,7 +45,6 @@ class CateRoomController extends Controller
             'category_rooms.name',
             'category_rooms.description',
             'category_rooms.image',
-            'category_rooms.short_description',
             'category_rooms.quantity_of_people',
             'category_rooms.price',
             'category_rooms.acreage',
@@ -69,8 +70,7 @@ class CateRoomController extends Controller
                 'category_rooms.name',
                 'category_rooms.description',
                 'category_rooms.image',
-                'category_rooms.short_description',
-                'category_rooms.quantity_of_people',
+                    'category_rooms.quantity_of_people',
                 'category_rooms.price',
                 'category_rooms.acreage',
                 'category_rooms.floor',
@@ -100,7 +100,6 @@ class CateRoomController extends Controller
             'category_rooms.name',
             'category_rooms.description',
             'category_rooms.image',
-            'category_rooms.short_description',
             'category_rooms.quantity_of_people',
             'category_rooms.price',
             'category_rooms.acreage',
@@ -125,8 +124,7 @@ class CateRoomController extends Controller
                 'category_rooms.name',
                 'category_rooms.description',
                 'category_rooms.image',
-                'category_rooms.short_description',
-                'category_rooms.quantity_of_people',
+                    'category_rooms.quantity_of_people',
                 'category_rooms.price',
                 'category_rooms.acreage',
                 'category_rooms.floor',
@@ -182,7 +180,6 @@ class CateRoomController extends Controller
             'category_rooms.name',
             'category_rooms.description',
             'category_rooms.image',
-            'category_rooms.short_description',
             'category_rooms.quantity_of_people',
             'category_rooms.price',
             'category_rooms.acreage',
@@ -208,8 +205,7 @@ class CateRoomController extends Controller
                 'category_rooms.name',
                 'category_rooms.image',
                 'category_rooms.description',
-                'category_rooms.short_description',
-                'category_rooms.quantity_of_people',
+                    'category_rooms.quantity_of_people',
                 'category_rooms.price',
                 'category_rooms.acreage',
                 'category_rooms.floor',
@@ -280,7 +276,6 @@ class CateRoomController extends Controller
             'category_rooms.name',
             'category_rooms.description',
             'category_rooms.image',
-            'category_rooms.short_description',
             'category_rooms.quantity_of_people',
             'category_rooms.price',
             'category_rooms.acreage',
@@ -317,8 +312,7 @@ class CateRoomController extends Controller
                 'category_rooms.name',
                 'category_rooms.image',
                 'category_rooms.description',
-                'category_rooms.short_description',
-                'category_rooms.quantity_of_people',
+                    'category_rooms.quantity_of_people',
                 'category_rooms.price',
                 'category_rooms.acreage',
                 'category_rooms.floor',
@@ -347,7 +341,20 @@ class CateRoomController extends Controller
     public function show($id)
     {
         $categoryRoom = categoryRoom::find($id);
-        return response()->json($categoryRoom);
+        $cate = comfortDetail::where('id_cate_room', '=', $categoryRoom->id)->get();
+
+        $comfortIds = [];
+        foreach ($cate as $comfort) {
+            $comfort_detail = comfort::where('id', '=', $comfort->id_comfort)->get();
+            $comfortIds[] = $comfort_detail;
+        }
+
+        $data = [
+            'categoryRoom' => $categoryRoom,
+            'comfort' => $comfortIds
+        ];
+
+        return response()->json($data);
     }
     public function store(CategoryRoomRequest $request)
     {
@@ -358,8 +365,6 @@ class CateRoomController extends Controller
         $params['image'] = $uploadedImage->getSecurePath();
         $categoryRoom = categoryRoom::create($params);
 
-
-
         $cate = categoryRoom::find($categoryRoom->id);
         $imageRecord = new Image();
         $imageRecord->image = $uploadedImage->getSecurePath();
@@ -369,8 +374,13 @@ class CateRoomController extends Controller
         $imageDetail->id_cate = $cate->id;
         $imageDetail->id_image = $imageRecord->id;
         $imageDetail->save();
-
         if ($categoryRoom->id) {
+            foreach ($params['comfort'] as $comfortValue) {
+        $comfort = new comfortDetail();
+                $comfort->id_cate_room = $cate->id;
+                $comfort->id_comfort = $comfortValue;
+                $comfort->save();
+            }
             return response()->json($categoryRoom, Response::HTTP_CREATED);
         }
         return response()->json([
@@ -425,6 +435,15 @@ class CateRoomController extends Controller
             $params['image'] = $uploadedImage->getSecurePath();
 
         }
+        $comfortDetailToDelete = comfortDetail::where('id_cate_room', $categoryRoom->id);
+        $comfortDetailToDelete->delete();
+
+            foreach ($params['comfort'] as $comfortValue) {
+                $comfort = new comfortDetail();
+                $comfort->id_cate_room = $categoryRoom->id;
+                $comfort->id_comfort = $comfortValue;
+                $comfort->save();
+            }
         if ($categoryRoom) {
             $categoryRoom->update($params);
             return response()->json([
